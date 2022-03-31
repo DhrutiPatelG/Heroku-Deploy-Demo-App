@@ -1,7 +1,7 @@
 namespace :free_coffee do
   task free_coffee_reward_at_end_of_month: :environment do
     User.all.each do |user|
-      user.transactions.where(created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month).each do |transaction|
+      user.transactions.where(created_at: Date.today.last_month.beginning_of_month..Date.today.last_month.end_of_month).each do |transaction|
         points = user.currency == transaction.currency ? (transaction.amount/100).to_i * 10 : (transaction.amount/100).to_i * 20
       end
 
