@@ -23,6 +23,7 @@ class Transaction < ApplicationRecord
     user.customer_tier = "standard" if user.points <= 999
     user.customer_tier = "gold" if user.points > 1000 && user.points < 4999
     user.customer_tier = "plaitnum" if user.points > 5000
+    user.airport_lounge_reward = true if user.gold?
     user.save!
   end
 end
