@@ -8,28 +8,35 @@ class User < ApplicationRecord
 
   # Associations
   has_many :transactions
-  has_many :products, through: :transactions
+  has_many :products, through: :transactions, dependent: :destroy
   belongs_to :currency
+  has_many :user_rewards
+  belongs_to :reward
 
   # Validations
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :birthdate, presence: true
+  validates :first_name, :last_name, :birthdate, presence: true
   validate :check_birthdate
 
   def check_birthdate
     self.birthdate > Date.today ?  errors.add(:birthdate, "cannot be greater than today's date") : nil
   end
 
-  def self.standard?
-    user.customer_tier == "standard"
+  # returns the associated transactions that are created with same currency.
+  def fetch_native_transactions
+    transactions.where(currency_id: currency_id)
   end
 
-  def self.gold?
-    user.customer_tier == "gold"
+  # returns the associated transactions that are created with foreign currency.
+  def fetch_foreign_transactions
+    transactions.where.not(currency_id: currency_id)
   end
 
-  def self.platinum?
-    user.customer_tier == "platinum"
+  def calculate_reward_points
+    # for transactions created with same currency
+    native_points = (fetch_native_transactions.sum(:amount)/100).to_i * 10
+    # for transactions created with foreign currency
+    foreign_points = (fetch_foreign_transactions.sum(:amount)/100).to_i * 20
+    # return total points of user
+    native_points + foreign_points
   end
 end

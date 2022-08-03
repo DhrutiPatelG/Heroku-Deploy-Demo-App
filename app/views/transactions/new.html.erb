@@ -1,0 +1,21 @@
+<div class="m-3">
+
+  <%= form_with model: @transaction do |form| %>
+
+    <%= form.label :quantity, "Quantity : " %>
+    <%= form.number_field :quantity %><br>
+
+    <%= form.number_field :user_id, value: current_user.id, type: :hidden %><br>
+
+    <%= form.label "Product : " %>
+    <%= form.select :product_id, @product.map{|p| [p.title , p.id ]} %></h2><br><br>
+
+    <%= form.label "Currency : " %>
+    <%= form.select :currency_id, @currency.map{|c| [c.name , c.id ]} , selected: current_user.currency_id %></h2><br><br>
+
+    <%= form.submit %>
+  <% end %>
+
+  <%= link_to "Back to User", users_show_path %>
+
+</div>

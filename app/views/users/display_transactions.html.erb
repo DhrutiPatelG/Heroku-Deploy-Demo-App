@@ -1,26 +1,26 @@
-<!-- @user.transactions -->
-<h1> Total Transactions
-  <%= @transactions.count %>
-</h1>
-
-<h2>Transaction Details</h2>
-<table>
-  <% @transactions.each do |transaction| %>
-  <tr>
-    <td><b> Amount </b></td>
-    <td><%= transaction.amount %></td>
-  </tr>
-  <tr>
-    <td><b> Value </b></td>
-    <td><%= transaction.value %></td>
-  </tr>
-  <tr>
-    <td><b> Quantity </b></td>
-    <td><%= transaction.quantity %></td>
-  </tr>
-  <% end %>
-</table>
-
 <div>
-  <%= link_to "Back to User", users_show_path %> |
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"><h3> Amount </h3></th>
+        <th scope="col"><h3>Value </h3></th>
+        <th scope="col"><h3> Quantity </h3></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <tr>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.value %></td>
+          <td style="text-align: center;"><%= transaction.quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <div>
+    <%= link_to "Back to User", users_show_path %> |
+  </div>
 </div>

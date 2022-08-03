@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_31_110557) do
+ActiveRecord::Schema.define(version: 2022_04_01_125130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 2022_03_31_110557) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rewards", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.decimal "amount"
     t.string "value"
@@ -42,6 +49,16 @@ ActiveRecord::Schema.define(version: 2022_03_31_110557) do
     t.index ["currency_id"], name: "index_transactions_on_currency_id"
     t.index ["product_id"], name: "index_transactions_on_product_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
+  end
+
+  create_table "user_rewards", force: :cascade do |t|
+    t.boolean "reward_status"
+    t.bigint "user_id", null: false
+    t.bigint "reward_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reward_id"], name: "index_user_rewards_on_reward_id"
+    t.index ["user_id"], name: "index_user_rewards_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,13 +84,17 @@ ActiveRecord::Schema.define(version: 2022_03_31_110557) do
     t.datetime "cash_rebate_reward_collected_at"
     t.datetime "birthday_reward_collected_at"
     t.boolean "airport_lounge_reward", default: false
+    t.bigint "reward_id"
     t.index ["currency_id"], name: "index_users_on_currency_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["reward_id"], name: "index_users_on_reward_id"
   end
 
   add_foreign_key "transactions", "currencies"
   add_foreign_key "transactions", "products"
   add_foreign_key "transactions", "users"
+  add_foreign_key "user_rewards", "rewards"
+  add_foreign_key "user_rewards", "users"
   add_foreign_key "users", "currencies"
 end

@@ -5,7 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Delete everything in the database and add new data.
 Transaction.delete_all
+User.destroy_all
 Currency.destroy_all
 [
   [1, 'USD', '$'],
@@ -36,9 +39,22 @@ Product.destroy_all
   )
 end
 
-# 15.times do
-#   Transaction.create(
-#     quantity: Faker::Number.digit,
-#     user_id: User.find(Faker::Number.)
-#   )
-# end
+15.times do
+  User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.free_email,
+    password: "password",
+    currency_id: Currency.ids.sample,
+    birthdate: Faker::Date.birthday(min_age: 18, max_age: 65)
+  )
+end
+
+40.times do
+  Transaction.create(
+    quantity: rand(1..15),
+    currency_id: Currency.ids.sample,
+    user_id: User.ids.sample,
+    product_id: Product.ids.sample
+  )
+end

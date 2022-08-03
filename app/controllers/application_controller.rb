@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   layout :layout
 
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || users_show_path
+  end
+
   protected
 
   def configure_permitted_parameters

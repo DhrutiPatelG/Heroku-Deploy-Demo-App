@@ -1,67 +1,73 @@
-<table>
+<div class="m-3">
+  <table>
 
-  <tr>
-    <td><b>First Name : </b></td>
-    <td><%=@user.first_name %></td>
-  </tr>
+    <tr>
+      <td><b>First Name : </b></td>
+      <td><%=@user.first_name %></td>
+    </tr>
 
-  <tr>
-    <td><b>Last Name : </b></td>
-    <td><%=@user.last_name %></td>
-  </tr>
+    <tr>
+      <td><b>Last Name : </b></td>
+      <td><%=@user.last_name %></td>
+    </tr>
 
-  <tr>
-    <td><b>Email : </b></td>
-    <td><%=@user.email %></td>
-  </tr>
+    <tr>
+      <td><b>Email : </b></td>
+      <td><%=@user.email %></td>
+    </tr>
 
-  <tr>
-    <td><b>Birthdate : </b></td>
-    <td><%=@user.birthdate %></td>
-  </tr>
+    <tr>
+      <td><b>Birthdate : </b></td>
+      <td><%=@user.birthdate %></td>
+    </tr>
 
-  <tr>
-    <td><b>Currency : </b></td>
-    <td><%=@user.currency.name %></td>
-  </tr>
+    <tr>
+      <td><b>Currency : </b></td>
+      <td><%=@user.currency.name %></td>
+    </tr>
 
-  <tr>
-    <td><b>Customer Tier : </b></td>
-    <td><%=@user.customer_tier.capitalize %></td>
-  </tr>
+    <tr>
+      <td><b>Customer Tier : </b></td>
+      <td><%=@user.customer_tier.capitalize %></td>
+    </tr>
 
-  <tr>
-    <td><b>Points Collected : </b></td>
-    <td><%=@user.points %></td>
-  </tr>
+    <tr>
+      <td><b>Points Collected : </b></td>
+      <td><%=@user.points %></td>
+    </tr>
 
-</table>
-<h2> Rewards Collected</h2>
-<table>
-  <tr>
-    <td><b>Free Coffee Reward : </b></td>
-    <td><%= @user.free_coffee_reward ? "Yes" : "No" %></td>
-  </tr>
+  </table>
 
-  <tr>
-    <td><b>Free Movie Tickets Reward : </b></td>
-    <td><%= @user.movie_tickets_reward ? "Yes" : "No" %></td>
-  </tr>
-  <tr>
-    <td><b>5 % Cash Rebate Reward : </b></td>
-    <td><%= @user.cash_rebate_reward ? "Yes" : "No" %></td>
-  </tr>
-  <tr>
-    <td><b>Free Coffee Reward Collected During Birthday Month : </b></td>
-    <td><%= @user.birthday_reward ? "Yes" : "No" %></td>
-  </tr>
-  <tr>
-    <td><b>4x Airport Lounge Access Reward : </b></td>
-    <td><%= @user.airport_lounge_reward ? "Yes" : "No" %></td>
-  </tr>
-</table>
+  <h2> Rewards Collected</h2>
 
+  <table>
+    <tr>
+      <td><b>Free Coffee Reward : </b></td>
+      <td><%= @user.free_coffee_reward ? "Yes" : "No" %></td>
+    </tr>
 
-<div>
-  <%= link_to "Display Transactions", users_display_transactions_path %> |
+    <tr>
+      <td><b>Free Movie Tickets Reward : </b></td>
+      <td><%= @user.movie_tickets_reward ? "Yes" : "No" %></td>
+    </tr>
+
+    <tr>
+      <td><b>5 % Cash Rebate Reward : </b></td>
+      <td><%= @user.cash_rebate_reward ? "Yes" : "No" %></td>
+    </tr>
+
+    <tr>
+      <td><b>Free Coffee Reward Collected During Birthday Month : </b></td>
+      <td><%= @user.birthday_reward ? "Yes" : "No" %></td>
+    </tr>
+
+    <tr>
+      <td><b>4x Airport Lounge Access Reward : </b></td>
+      <td><%= @user.airport_lounge_reward ? "Yes" : "No" %></td>
+    </tr>
+  </table>
+
+  <div>
+    <%= link_to "Display Transactions", users_display_transactions_path %> | <%= link_to "Create New Transactions", new_transaction_path %>
+  </div>
 </div>
